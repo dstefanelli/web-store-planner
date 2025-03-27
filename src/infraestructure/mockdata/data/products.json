@@ -1,0 +1,92 @@
+[
+  {
+    "id": "1",
+    "image": "/ui/assets/images//01889063427-e1.jpg",
+    "name": "JEANS Z1975 WIDE LEG TIRO ALTO LONG LENGTH",
+    "price": 29.95
+  },
+  {
+    "id": "2",
+    "image": "/ui/assets/images//08246041405-e1.jpg",
+    "name": "JEANS ZW COLLECTION WIDE LEG TIRO ALTO",
+    "price": 15.99
+  },
+  {
+    "id": "3",
+    "image": "/ui/assets/images//08246051600-e1.jpg",
+    "name": "JEANS ZW COLLECTION WIDE LEG TIRO ALTO",
+    "price": 15.99
+  },
+  {
+    "id": "4",
+    "image": "/ui/assets/images/06840055400-e1.jpg",
+    "name": "JEANS ZW COLLECTION PALAZZO TIRO ALTO",
+    "price": 29.95
+  },
+  {
+    "id": "5",
+    "image": "/ui/assets/images/05474044405-e1.jpg",
+    "name": "JEANS ZW COLLECTION WIDE LEG TIRO ALTO",
+    "price": 29.95
+  },
+  {
+    "id": "6",
+    "image": "/ui/assets/images/09632253800-e1.jpg",
+    "name": "JEANS ZW COLLECTION WIDE LEG TIRO ALTO",
+    "price": 29.95
+  },
+  {
+    "id": "7",
+    "image": "/ui/assets/images/06164166800-e1.jpg",
+    "name": "JEANS Z1975 DENIM RECTOS TIRO ALTO",
+    "price": 25.95
+  },
+  {
+    "id": "8",
+    "image": "/ui/assets/images/08307055400-e1.jpg",
+    "name": "JEANS ZW COLLECTION WIDE LEG TIRO ALTO",
+    "price": 29.95
+  },
+  {
+    "id": "9",
+    "image": "/ui/assets/images/09632253800-e1.jpg",
+    "name": "JEANS TRF BALLOON CURVED LEG TIRO MEDIO",
+    "price": 29.95
+  },
+  {
+    "id": "10",
+    "image": "/ui/assets/images/09632253700-e1.jpg",
+    "name": "JEANS SLOUCHY TRABILLA TIRO MEDIO",
+    "price": 35.95
+  },
+  {
+    "id": "11",
+    "image": "/ui/assets/images/05474043251-e2.jpg",
+    "name": "JEANS ZW COLLECTION WIDE LEG TIRO ALTO",
+    "price": 29.95
+  },
+  {
+    "id": "12",
+    "image": "/ui/assets/images/08246046718-e1.jpg",
+    "name": "JEANS ZW COLLECTION BOOTCUT FULL LENGTH TIRO BAJO",
+    "price": 39.95
+  },
+  {
+    "id": "13",
+    "image": "/ui/assets/images/06164104427-e1.jpg",
+    "name": "JEANS ZW COLLECTION BOOTCUT FULL LENGTH TIRO BAJO",
+    "price": 27.95
+  },
+  {
+    "id": "14",
+    "image": "/ui/assets/images/06164166802-e1.jpg",
+    "name": "JEANS Z1975 DENIM RECTOS TIRO ALTO",
+    "price": 25.95
+  },
+  {
+    "id": "15",
+    "image": "/ui/assets/images/01416222800-e1.jpg",
+    "name": "JEANS Z1975 FLARE TIRO ALTO",
+    "price": 25.95
+  }
+]

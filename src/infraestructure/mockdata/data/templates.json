@@ -1,0 +1,27 @@
+[
+  {
+    "id": "template_01",
+    "name": "Aesthetic template",
+    "alignment": "LEFT"
+  },
+  {
+    "id": "template_02",
+    "name": "Cool template",
+    "alignment": "CENTER"
+  },
+  {
+    "id": "template_03",
+    "name": "Normal template",
+    "alignment": "RIGHT"
+  },
+  {
+    "id": "template_04",
+    "name": "Winter template",
+    "alignment": "CENTER"
+  },
+  {
+    "id": "template_01",
+    "name": "Summer template",
+    "alignment": "LEFT"
+  }
+]
