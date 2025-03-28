@@ -2,16 +2,16 @@
   {
     "id": "template_01",
     "name": "Aesthetic template",
-    "alignment": "LEFT"
+    "alignment": "left"
   },
   {
     "id": "template_02",
     "name": "Cool template",
-    "alignment": "CENTER"
+    "alignment": "center"
   },
   {
     "id": "template_03",
     "name": "Retro template",
-    "alignment": "RIGHT"
+    "alignment": "right"
   }
 ]

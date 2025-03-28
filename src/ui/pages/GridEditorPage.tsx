@@ -31,7 +31,7 @@ export default function Editor() {
     isError: isErrorInTemplates,
   } = useQuery({
     queryKey: ['templates'],
-    queryFn: getTemplates,
+    queryFn: () => getTemplates(),
   });
 
   useEffect(() => {
@@ -41,15 +41,35 @@ export default function Editor() {
     }
   }, [products]);
 
+  const handleTemplateChange = (rowId: string, templateId: string) => {
+    setRows((prev) =>
+      prev.map((row) =>
+        row.id === rowId ? { ...row, selectedTemplateId: templateId } : row,
+      ),
+    );
+  };
+
   if (isLoadingProducts || isLoadingTemplates) return <Spinner />;
   if (isErrorInProducts || isErrorInTemplates)
     return <ErrorMessage message="An error ocurred =(" />;
 
   return (
-    <div className="container">
+    <section className="container">
       <div className="grid__wrapper">
-        <Grid rows={rows} templates={templates} />
+        <h1 className="grid__title">Grid creator</h1>
+        <p className="grid__description">
+          The product arrangement updates instantly based on your selected
+          alignment.
+          <br />
+          Use the dropdown in each row to choose a layout template (left,
+          center, or right aligned).
+        </p>
+        <Grid
+          rows={rows}
+          templates={templates}
+          onTemplateChange={handleTemplateChange}
+        />
       </div>
-    </div>
+    </section>
   );
 }

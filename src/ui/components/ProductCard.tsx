@@ -9,8 +9,10 @@ export default function ProductCard({ product }: { product: Product }) {
         alt={product.name}
         width={100}
       />
-      <p className="grid__item-title">{product.name}</p>
-      <p className="grid__item-price">${product.price.toFixed(2)}</p>
+      <div className="grid__item-description">
+        <p className="grid__item-title">{product.name}</p>
+        <p className="grid__item-price">€{product.price.toFixed(2)}</p>
+      </div>
     </div>
   );
 }

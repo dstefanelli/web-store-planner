@@ -43,9 +43,13 @@ export function makeServer({ environment = 'development' } = {}) {
       });
 
       // GET: api/templates/
-      this.get('/templates', (schema, _request) => {
-        return schema.all('templates');
-      });
+      this.get(
+        '/templates',
+        (schema, _request) => {
+          return schema.all('templates');
+        },
+        { timing: 800 }, // Simulate API response
+      );
     },
   });
 }

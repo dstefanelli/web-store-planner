@@ -13,7 +13,6 @@ export async function getProducts(ids: string[]): Promise<Product[]> {
 
   if (!res.ok) throw new Error('Error fetching products');
   const data = await res.json();
-  console.log('getProducts', data);
   return Array.isArray(data) ? data : [];
 }
 
@@ -27,6 +26,5 @@ export async function getTemplates(): Promise<Template[]> {
 
   if (!res.ok) throw new Error('Error fetching templates');
   const data = await res.json();
-  console.log('getTemplates', data);
-  return Array.isArray(data) ? data : [];
+  return data.templates ?? [];
 }
