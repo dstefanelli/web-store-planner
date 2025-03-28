@@ -1,11 +1,13 @@
-import { Template } from './template';
+import { Product } from './product';
 
 export interface Grid {
   id: string;
   name: string;
-  rows: Row;
+  rows: Row[];
 }
 
 export interface Row {
-  templates: Template[];
+  id: string;
+  products: Product[];
+  selectedTemplateId: string;
 }

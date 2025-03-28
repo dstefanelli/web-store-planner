@@ -1,0 +1,30 @@
+.grid__wrapper {
+    padding-top: 40px;
+    position: relative;
+
+    .grid__items {
+        display: flex;
+        gap: 1%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .grid__item {
+        flex-basis: 32%;
+        
+        &-image {
+            width: 100%;
+        }
+
+        &-title {
+            font-size: 0.75em;
+            padding-top: .25em;
+            margin: 0;
+        }
+
+        &-price {
+            font-size: .75em;
+            margin-bottom: .5em;
+        }
+    }
+}

@@ -1,0 +1,15 @@
+.error__message {
+    align-items: center;
+    display: flex;
+    height: calc(100vh - 70px);
+    justify-content: center;
+    flex-direction: column;
+
+    &-image {
+        max-width: 480px;
+    }
+
+    &-title {
+        font-weight: bold;
+    }
+}

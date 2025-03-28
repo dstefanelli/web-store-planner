@@ -14,9 +14,9 @@ export default defineConfig({
   },
   server: {
     port: 3000,
-    origin: '/planner',
+    origin: '/products',
   },
-  base: '/planner',
+  base: '/products',
   resolve: {
     alias: {
       '@': path.resolve(__dirname, './src'),
