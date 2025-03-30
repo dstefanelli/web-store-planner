@@ -1,3 +1,8 @@
+import {
+  SortableContext,
+  horizontalListSortingStrategy,
+} from '@dnd-kit/sortable';
+
 import { Row } from '@/domain/grid';
 import { Template } from '@/domain/template';
 import ProductCard from './ProductCard';
@@ -9,13 +14,13 @@ export interface Props {
 }
 
 export default function RowItem({ row, templates, onTemplateChange }: Props) {
-  function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    onTemplateChange(row.id, e.target.value);
-  }
-
   function getAlignment(templateId: string, templates: Template[]): string {
     const template = templates.find((tmp) => tmp.id === templateId);
     return template?.alignment ?? 'left'; // default: left
+  }
+
+  function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
+    onTemplateChange(row.id, e.target.value);
   }
 
   return (
@@ -37,16 +42,21 @@ export default function RowItem({ row, templates, onTemplateChange }: Props) {
           </select>
         </div>
       </div>
-      <div
-        className={`grid__row-inner grid__row-content-${getAlignment(
-          row.selectedTemplateId,
-          templates,
-        )}`}
+      <SortableContext
+        items={row.products.map((product) => `${row.id}:${product.id}`)}
+        strategy={horizontalListSortingStrategy}
       >
-        {row.products.map((product) => (
-          <ProductCard key={product.id} product={product} />
-        ))}
-      </div>
+        <div
+          className={`grid__row-inner grid__row-content-${getAlignment(
+            row.selectedTemplateId,
+            templates,
+          )}`}
+        >
+          {row.products.map((product) => (
+            <ProductCard key={product.id} product={product} rowId={row.id} />
+          ))}
+        </div>
+      </SortableContext>
     </div>
   );
 }

@@ -41,13 +41,42 @@ export default function Editor() {
     }
   }, [products]);
 
-  const handleTemplateChange = (rowId: string, templateId: string) => {
+  function handleTemplateChange(rowId: string, templateId: string) {
     setRows((prev) =>
       prev.map((row) =>
         row.id === rowId ? { ...row, selectedTemplateId: templateId } : row,
       ),
     );
-  };
+  }
+
+  function handleProductReorder(
+    fromRowId: string,
+    toRowId: string,
+    productId: string,
+    newIndex: number,
+  ) {
+    setRows((prev) => {
+      const updated = [...prev];
+      const fromRow = updated.find((r) => r.id === fromRowId);
+      const toRow = updated.find((r) => r.id === toRowId);
+
+      if (!fromRow || !toRow) return prev;
+
+      const product = fromRow.products.find((p) => p.id === productId);
+      if (!product) return prev;
+
+      if (toRow.products.some((p) => p.id === productId)) return prev;
+      if (toRow.products.length >= 3 && fromRowId !== toRowId) return prev;
+
+      // Quitar de fila original
+      fromRow.products = fromRow.products.filter((p) => p.id !== productId);
+
+      // Insertar en destino en el índice correcto
+      toRow.products.splice(newIndex, 0, product);
+
+      return updated;
+    });
+  }
 
   if (isLoadingProducts || isLoadingTemplates) return <Spinner />;
   if (isErrorInProducts || isErrorInTemplates)
@@ -68,6 +97,7 @@ export default function Editor() {
           rows={rows}
           templates={templates}
           onTemplateChange={handleTemplateChange}
+          onProductReorder={handleProductReorder}
         />
       </div>
     </section>
