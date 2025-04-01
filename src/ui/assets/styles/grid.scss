@@ -4,6 +4,11 @@
   padding: 10px;
   position: relative;
 
+  .btn-grab {
+    cursor: grab;
+    padding: 8px;
+  }
+
   .grid__title {
     font-size: 1.2em;
     text-transform: capitalize;
@@ -20,6 +25,16 @@
     flex-wrap: wrap;
   }
 
+  .grid__row-wrapper {
+    position: relative;
+
+    &-handle {
+      position: absolute;
+      left: 0;
+      top: 0;
+    }
+  }
+
   .grid__row {
     border: 1px solid #6c757d;
     margin-bottom: 8px;
@@ -28,6 +43,11 @@
       display: flex;
       gap: 2%;
       justify-content: space-between;
+      position: relative;
+    }
+
+    &-handle {
+      position: relative;
     }
 
     &-content-left {
@@ -53,11 +73,29 @@
   .grid__item {
     flex-basis: 32%;
 
+    &-active {
+      border: 1px dashed #6c757d;
+    }
+
+    &-content {
+      position: relative;
+    }
+
+    &-handle {
+      cursor: grab;
+      bottom: 0;
+      left: 0;
+      position: absolute;
+      right: 0;
+      top: 0;
+    }
+
     &-image {
       width: 100%;
     }
 
     &-description {
+      background-color: #ffffff;
       padding: 0 0.25em;
     }
 

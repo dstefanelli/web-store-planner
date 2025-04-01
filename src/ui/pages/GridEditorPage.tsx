@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
-import { useQuery } from '@tanstack/react-query';
-import { getProducts, getTemplates } from '@/infraestructure/server/api';
-import { distributeProductsInRows } from '@/application/useGridManager';
 import { useSearchParams } from 'react-router';
+import { useQuery } from '@tanstack/react-query';
+import { distributeProductsInRows } from '@/application/useGridManager';
+import { getProducts, getTemplates } from '@/infraestructure/server/api';
 import { Row } from '@/domain/grid';
 import Grid from '@/ui/components/Grid';
 import Spinner from '@/ui/components/Spinner';
@@ -21,7 +21,7 @@ export default function Editor() {
     isLoading: isLoadingProducts,
     isError: isErrorInProducts,
   } = useQuery({
-    queryKey: ['products'],
+    queryKey: ['products', ids],
     queryFn: () => getProducts(ids),
   });
 
@@ -49,31 +49,11 @@ export default function Editor() {
     );
   }
 
-  function handleProductReorder(
-    fromRowId: string,
-    toRowId: string,
-    productId: string,
-    newIndex: number,
-  ) {
+  function handleRowReorder(fromIndex: number, toIndex: number) {
     setRows((prev) => {
       const updated = [...prev];
-      const fromRow = updated.find((r) => r.id === fromRowId);
-      const toRow = updated.find((r) => r.id === toRowId);
-
-      if (!fromRow || !toRow) return prev;
-
-      const product = fromRow.products.find((p) => p.id === productId);
-      if (!product) return prev;
-
-      if (toRow.products.some((p) => p.id === productId)) return prev;
-      if (toRow.products.length >= 3 && fromRowId !== toRowId) return prev;
-
-      // Quitar de fila original
-      fromRow.products = fromRow.products.filter((p) => p.id !== productId);
-
-      // Insertar en destino en el índice correcto
-      toRow.products.splice(newIndex, 0, product);
-
+      const [moved] = updated.splice(fromIndex, 1);
+      updated.splice(toIndex, 0, moved);
       return updated;
     });
   }
@@ -85,19 +65,22 @@ export default function Editor() {
   return (
     <section className="container">
       <div className="grid__wrapper">
-        <h1 className="grid__title">Grid creator</h1>
-        <p className="grid__description">
-          The product arrangement updates instantly based on your selected
-          alignment.
-          <br />
-          Use the dropdown in each row to choose a layout template (left,
-          center, or right aligned).
-        </p>
+        <header>
+          <h1 className="grid__title">Grid creator</h1>
+          <p className="grid__description">
+            The product arrangement updates instantly based on your selected
+            alignment.
+            <br />
+            Use the dropdown in each row to choose a layout template (left,
+            center, or right aligned).
+          </p>
+        </header>
         <Grid
           rows={rows}
           templates={templates}
+          setRows={setRows}
           onTemplateChange={handleTemplateChange}
-          onProductReorder={handleProductReorder}
+          onRowReorder={handleRowReorder}
         />
       </div>
     </section>

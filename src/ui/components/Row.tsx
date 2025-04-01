@@ -5,7 +5,8 @@ import {
 
 import { Row } from '@/domain/grid';
 import { Template } from '@/domain/template';
-import ProductCard from './ProductCard';
+import SortableProduct from '@/ui/components/SortableProduct';
+import { getTemplateAlignment } from '@/utils/templates';
 
 export interface Props {
   row: Row;
@@ -14,11 +15,6 @@ export interface Props {
 }
 
 export default function RowItem({ row, templates, onTemplateChange }: Props) {
-  function getAlignment(templateId: string, templates: Template[]): string {
-    const template = templates.find((tmp) => tmp.id === templateId);
-    return template?.alignment ?? 'left'; // default: left
-  }
-
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
     onTemplateChange(row.id, e.target.value);
   }
@@ -33,7 +29,7 @@ export default function RowItem({ row, templates, onTemplateChange }: Props) {
             aria-label="Select a template"
             onChange={handleChange}
           >
-            <option defaultValue="">Select a template</option>
+            <option value={templates[0].id}>Select a template</option>
             {templates.map((template) => (
               <option key={template.id} value={template.id}>
                 {template.name}
@@ -47,13 +43,17 @@ export default function RowItem({ row, templates, onTemplateChange }: Props) {
         strategy={horizontalListSortingStrategy}
       >
         <div
-          className={`grid__row-inner grid__row-content-${getAlignment(
+          className={`grid__row-inner grid__row-content-${getTemplateAlignment(
             row.selectedTemplateId,
             templates,
           )}`}
         >
           {row.products.map((product) => (
-            <ProductCard key={product.id} product={product} rowId={row.id} />
+            <SortableProduct
+              key={product.id}
+              product={product}
+              rowId={row.id}
+            />
           ))}
         </div>
       </SortableContext>
