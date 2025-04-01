@@ -1,12 +1,45 @@
 .grid__wrapper {
   border: 1px solid #6c757d;
-  margin-top: 40px;
+  margin-top: 1.25em;
   padding: 10px;
   position: relative;
+
+  .grid__header {
+    border-bottom: 0;
+  }
+
+  .grid__zoom-wrapper {
+    position: relative;
+    transform-origin: top center;
+    transition: transform 0.3s ease-in-out;
+    &.grid--zoomed {
+      .grid__items {
+        pointer-events: none;
+        user-select: none;
+      }
+    }
+  }
 
   .btn-grab {
     cursor: grab;
     padding: 8px;
+  }
+
+  .grid__zoom-controls {
+    align-items: center;
+    display: flex;
+    font-weight: 300;
+    gap: 1em;
+    justify-content: space-between;
+    padding: 0 0 1em;
+    p {
+      margin: 0;
+    }
+  }
+
+  .grid__disable-drag {
+    pointer-events: none;
+    user-select: none;
   }
 
   .grid__title {
@@ -20,6 +53,7 @@
   }
 
   .grid__items {
+    background-color: #fff;
     display: flex;
     justify-content: center;
     flex-wrap: wrap;
