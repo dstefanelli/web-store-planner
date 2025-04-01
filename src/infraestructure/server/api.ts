@@ -28,3 +28,26 @@ export async function getTemplates(): Promise<Template[]> {
   const data = await res.json();
   return data.templates ?? [];
 }
+
+// POST: Grid
+export async function saveGrid(payload: {
+  name: string;
+  rows: { templateId: string; productIds: string[] }[];
+}) {
+  const { apiUrl } = EnvConfig();
+  const url = `${apiUrl}/api/grids`;
+
+  const res = await fetch(url, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+    },
+    body: JSON.stringify(payload),
+  });
+
+  if (!res.ok) {
+    throw new Error('Error saving grid');
+  }
+
+  return res.json();
+}

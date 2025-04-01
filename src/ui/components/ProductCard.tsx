@@ -11,7 +11,6 @@ export interface Props {
 }
 
 export default function ProductCard({ product, dragHandle }: Props) {
-  console.log('ProductCard dragHandle', dragHandle);
   return (
     <div className="grid__item-inner">
       <div className="grid__item-content">

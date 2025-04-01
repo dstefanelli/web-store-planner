@@ -6,7 +6,7 @@ import {
 import { Row } from '@/domain/grid';
 import { Template } from '@/domain/template';
 import SortableProduct from '@/ui/components/SortableProduct';
-import { getTemplateAlignment } from '@/utils/templates';
+import { getTemplateAlignment } from '@/utils/gridEditor';
 
 export interface Props {
   row: Row;
@@ -29,7 +29,7 @@ export default function RowItem({ row, templates, onTemplateChange }: Props) {
             aria-label="Select a template"
             onChange={handleChange}
           >
-            <option value={templates[0].id}>Select a template</option>
+            <option value="">Select a template</option>
             {templates.map((template) => (
               <option key={template.id} value={template.id}>
                 {template.name}

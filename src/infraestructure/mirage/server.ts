@@ -50,6 +50,17 @@ export function makeServer({ environment = 'development' } = {}) {
         },
         { timing: 800 }, // Simulate API response
       );
+
+      // POST: api/grids
+      this.post('/grids', (_schema, request) => {
+        const payload = JSON.parse(request.requestBody);
+        console.log('Grid received on POST /api/grids:', payload);
+
+        return {
+          success: true,
+          gridId: 'mock-grid-id-123',
+        };
+      });
     },
   });
 }

@@ -1,6 +1,6 @@
 .grid__wrapper {
   border: 1px solid #6c757d;
-  margin-top: 1.25em;
+  margin-top: 2em;
   padding: 10px;
   position: relative;
 
@@ -78,6 +78,7 @@
       gap: 2%;
       justify-content: space-between;
       position: relative;
+      min-height: 150px;
     }
 
     &-handle {
@@ -143,5 +144,10 @@
       font-size: 0.75em;
       margin-bottom: 0.5em;
     }
+  }
+
+  .grid__actions {
+    display: flex;
+    gap: 1em;
   }
 }
