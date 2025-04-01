@@ -47,3 +47,9 @@ yarn dev
 ```
 yarn build
 ```
+
+### Run Unit Tests
+
+```
+yarn test
+```
