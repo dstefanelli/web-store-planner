@@ -15,6 +15,7 @@ import ErrorMessage from '@/ui/components/ErrorMessage';
 import { createEmptyRow, generateGridName } from '@/utils/gridEditor';
 import '@ui/assets/styles/grid.scss';
 import AlertMessage from '../components/AlertMessage';
+import ZoomWrapper from '../components/ZoomWrapper';
 
 export default function Editor() {
   const [searchParams] = useSearchParams();
@@ -30,8 +31,6 @@ export default function Editor() {
     message: '',
     type: 'success',
   });
-  const [zoom, setZoom] = useState(1);
-  const isZoomed = zoom !== 1;
 
   const {
     data: products = [],
@@ -109,18 +108,6 @@ export default function Editor() {
     }
   }
 
-  function zoomIn() {
-    setZoom((prev) => Math.min(prev + 0.2, 1));
-  }
-
-  function zoomOut() {
-    setZoom((prev) => Math.max(prev - 0.2, 0.1));
-  }
-
-  function resetZoom() {
-    setZoom(1);
-  }
-
   if (isLoadingProducts || isLoadingTemplates) return <Spinner />;
   if (isErrorInProducts || isErrorInTemplates)
     return <ErrorMessage message="An error ocurred =(" />;
@@ -137,50 +124,8 @@ export default function Editor() {
             Use the dropdown in each row to choose a layout template (left,
             center, or right aligned).
           </p>
-          <div className="grid__zoom-controls">
-            <div>
-              <p>
-                Use the + and – buttons to zoom in and out of the grid. Click
-                Reset to return to the default view.{' '}
-                {isZoomed && (
-                  <strong>
-                    Zoom is active — reset to interact with the grid.
-                  </strong>
-                )}
-              </p>
-            </div>
-            <div className="btn-group" role="group" aria-label="Zoom controls">
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => zoomOut()}
-              >
-                -
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => resetZoom()}
-              >
-                Reset
-              </button>
-              <button
-                type="button"
-                className="btn btn-primary"
-                onClick={() => zoomIn()}
-              >
-                +
-              </button>
-            </div>
-          </div>
         </header>
-
-        <div
-          className={`grid__zoom-wrapper ${isZoomed ? 'grid--zoomed' : ''}`}
-          style={{
-            transform: zoom === 1 ? 'none' : `scale(${zoom})`,
-          }}
-        >
+        <ZoomWrapper>
           <Grid
             rows={rows}
             templates={templates}
@@ -188,7 +133,7 @@ export default function Editor() {
             onTemplateChange={handleTemplateChange}
             onRowReorder={handleRowReorder}
           />
-        </div>
+        </ZoomWrapper>
         {alert.show && (
           <AlertMessage message={alert.message} type={alert.type} show={true} />
         )}
