@@ -2,8 +2,8 @@ import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Row as RowType } from '@/domain/grid';
 import { Template } from '@/domain/template';
-import GrabButton from '@/ui/components/GrabButton';
-import Row from '@/ui/components/Row';
+import GrabButton from '@/ui/components/atoms/GrabButton';
+import Row from '@/ui/components/organisms/Row';
 
 interface Props {
   row: RowType;

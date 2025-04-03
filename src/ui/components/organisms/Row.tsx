@@ -5,7 +5,7 @@ import {
 
 import { Row } from '@/domain/grid';
 import { Template } from '@/domain/template';
-import SortableProduct from '@/ui/components/SortableProduct';
+import SortableProduct from '@/ui/components/molecules/SortableProduct';
 import { getTemplateAlignment } from '@/utils/gridEditor';
 
 export interface Props {

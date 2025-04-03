@@ -6,13 +6,13 @@ import { buildGridPayload } from '@/application/useSaveGrid';
 import { saveGrid } from '@/infraestructure/server/api';
 import { Row } from '@/domain/grid';
 import { createEmptyRow, generateGridName } from '@/utils/gridEditor';
-import { useTimedAlert } from '@/hooks/useAlertDismiss';
+import { useTimedAlert } from '@/hooks/useTimedAlert';
 import { PlusLg } from 'react-bootstrap-icons';
-import ErrorMessage from '@/ui/components/ErrorMessage';
-import AlertMessage from '@/ui/components/AlertMessage';
-import ZoomWrapper from '@/ui//components/ZoomWrapper';
-import Spinner from '@/ui/components/Spinner';
-import Grid from '@/ui/components/Grid';
+import ErrorMessage from '@/ui/components/atoms/ErrorMessage';
+import AlertMessage from '@/ui/components/atoms/AlertMessage';
+import ZoomWrapper from '@/ui/components/organisms/ZoomWrapper';
+import Spinner from '@/ui/components/atoms/Spinner';
+import Grid from '@/ui/components/organisms/Grid';
 import '@ui/assets/styles/grid.scss';
 
 export default function GridEditorPage() {

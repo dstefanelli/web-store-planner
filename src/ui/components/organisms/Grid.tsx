@@ -17,8 +17,9 @@ import {
 import { Row } from '@/domain/grid';
 import { Product } from '@/domain/product';
 import { Template } from '@/domain/template';
-import SortableRow from './SortableRow';
-import ProductCard from './ProductCard';
+import SortableRow from '@/ui/components/molecules/SortableRow';
+import ProductCard from '@/ui/components/molecules/ProductCard';
+import RowOverlay from '@/ui/components/atoms/RowOverlay';
 
 interface Props {
   rows: Row[];
@@ -203,17 +204,7 @@ export default function Grid({
 
           <DragOverlay>
             {activeProduct && <ProductCard product={activeProduct} />}
-            {activeRowId && (
-              <div
-                style={{
-                  background: '#fafafa',
-                  border: '1px dashed #6c757d',
-                  padding: '1rem',
-                }}
-              >
-                <div>Moving Row...</div>
-              </div>
-            )}
+            {activeRowId && <RowOverlay />}
           </DragOverlay>
         </DndContext>
       </div>

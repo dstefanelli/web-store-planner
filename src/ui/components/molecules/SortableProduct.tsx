@@ -1,7 +1,7 @@
 import { useSortable } from '@dnd-kit/sortable';
 import { CSS } from '@dnd-kit/utilities';
 import { Product } from '@/domain/product';
-import ProductCard from '@/ui/components/ProductCard';
+import ProductCard from '@/ui/components/molecules/ProductCard';
 
 interface Props {
   product: Product;

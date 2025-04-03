@@ -1,6 +1,6 @@
 import { HTMLAttributes } from 'react';
 import { Product } from '@/domain/product';
-import GrabButton from './GrabButton';
+import GrabButton from '@/ui/components/atoms/GrabButton';
 
 export interface Props {
   product: Product;
