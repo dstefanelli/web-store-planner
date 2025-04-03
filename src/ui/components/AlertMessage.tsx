@@ -1,3 +1,5 @@
+import { ExclamationCircle, CheckCircle } from 'react-bootstrap-icons';
+
 interface Props {
   show: boolean;
   message: string;
@@ -18,7 +20,11 @@ export default function AlertMessage({
   }[type];
 
   return (
-    <div className={`alert ${className}`} role="alert">
+    <div
+      className={`alert ${className} align-items-center d-flex gap-2 px-3 py-2`}
+      role="alert"
+    >
+      {type === 'success' ? <CheckCircle /> : <ExclamationCircle />}
       <div>{message}</div>
     </div>
   );

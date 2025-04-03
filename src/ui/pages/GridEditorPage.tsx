@@ -1,54 +1,27 @@
 import { useState, useEffect } from 'react';
 import { useSearchParams } from 'react-router';
-import { useQuery } from '@tanstack/react-query';
+import { useEditorData } from '@/hooks/useEditorData';
 import { distributeProductsInRows } from '@/application/useGridManager';
 import { buildGridPayload } from '@/application/useSaveGrid';
-import {
-  getProducts,
-  getTemplates,
-  saveGrid,
-} from '@/infraestructure/server/api';
+import { saveGrid } from '@/infraestructure/server/api';
 import { Row } from '@/domain/grid';
-import Grid from '@/ui/components/Grid';
-import Spinner from '@/ui/components/Spinner';
-import ErrorMessage from '@/ui/components/ErrorMessage';
 import { createEmptyRow, generateGridName } from '@/utils/gridEditor';
+import { useTimedAlert } from '@/hooks/useAlertDismiss';
+import { PlusLg } from 'react-bootstrap-icons';
+import ErrorMessage from '@/ui/components/ErrorMessage';
+import AlertMessage from '@/ui/components/AlertMessage';
+import ZoomWrapper from '@/ui//components/ZoomWrapper';
+import Spinner from '@/ui/components/Spinner';
+import Grid from '@/ui/components/Grid';
 import '@ui/assets/styles/grid.scss';
-import AlertMessage from '../components/AlertMessage';
-import ZoomWrapper from '../components/ZoomWrapper';
 
-export default function Editor() {
+export default function GridEditorPage() {
   const [searchParams] = useSearchParams();
   const idsParam = searchParams.get('ids');
   const ids = idsParam ? idsParam.split(',') : [];
+  const { products, templates, isLoading, isError } = useEditorData(ids);
   const [rows, setRows] = useState<Row[]>([]);
-  const [alert, setAlert] = useState<{
-    show: boolean;
-    message: string;
-    type: 'success' | 'error' | 'warning';
-  }>({
-    show: false,
-    message: '',
-    type: 'success',
-  });
-
-  const {
-    data: products = [],
-    isLoading: isLoadingProducts,
-    isError: isErrorInProducts,
-  } = useQuery({
-    queryKey: ['products', ids],
-    queryFn: () => getProducts(ids),
-  });
-
-  const {
-    data: templates = [],
-    isLoading: isLoadingTemplates,
-    isError: isErrorInTemplates,
-  } = useQuery({
-    queryKey: ['templates'],
-    queryFn: () => getTemplates(),
-  });
+  const { alert, setAlert } = useTimedAlert();
 
   useEffect(() => {
     if (products.length > 0) {
@@ -56,16 +29,6 @@ export default function Editor() {
       setRows(gridProducts);
     }
   }, [products]);
-
-  useEffect(() => {
-    if (alert.show) {
-      const timeout = setTimeout(() => {
-        setAlert((prev) => ({ ...prev, show: false }));
-      }, 3000);
-
-      return () => clearTimeout(timeout);
-    }
-  }, [alert.show]);
 
   function handleTemplateChange(rowId: string, templateId: string) {
     setRows((prev) =>
@@ -108,9 +71,8 @@ export default function Editor() {
     }
   }
 
-  if (isLoadingProducts || isLoadingTemplates) return <Spinner />;
-  if (isErrorInProducts || isErrorInTemplates)
-    return <ErrorMessage message="An error ocurred =(" />;
+  if (isLoading) return <Spinner />;
+  if (isError) return <ErrorMessage message="An error ocurred =(" />;
 
   return (
     <section className="container">
@@ -138,16 +100,16 @@ export default function Editor() {
           <AlertMessage message={alert.message} type={alert.type} show={true} />
         )}
         <div className="grid__actions">
-          <button className="btn btn-primary" onClick={handleSaveGrid}>
+          <button className="btn btn-sm btn-primary" onClick={handleSaveGrid}>
             Save Grid
           </button>
           <button
-            className="btn btn-secondary"
+            className="btn btn-sm btn-secondary"
             onClick={() => {
               setRows((prev) => [...prev, createEmptyRow()]);
             }}
           >
-            ➕ Add Empty Row
+            <PlusLg /> Add Empty Row
           </button>
         </div>
       </div>

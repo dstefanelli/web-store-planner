@@ -20,7 +20,7 @@ export default function ProductCard({ product, dragHandle }: Props) {
             {...dragHandle.attributes}
             {...dragHandle.listeners}
           >
-            <GrabButton />
+            <GrabButton alignment="vertical" />
           </div>
         )}
 
