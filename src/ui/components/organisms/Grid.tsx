@@ -20,6 +20,11 @@ import { Template } from '@/domain/template';
 import SortableRow from '@/ui/components/molecules/SortableRow';
 import ProductCard from '@/ui/components/molecules/ProductCard';
 import RowOverlay from '@/ui/components/atoms/RowOverlay';
+import {
+  moveProductWithinRow,
+  moveProductBetweenRows,
+  swapProductsBetweenFullRows,
+} from '@/utils/gridUtils';
 
 interface Props {
   rows: Row[];
@@ -79,20 +84,11 @@ export default function Grid({
 
       if (fromRowId === toRowId && fromProductId !== toProductId) {
         setRows((prev) =>
-          prev.map((row) => {
-            if (row.id !== fromRowId) return row;
-
-            const products = [...row.products];
-            const oldIndex = products.findIndex((p) => p.id === fromProductId);
-            const newIndex = products.findIndex((p) => p.id === toProductId);
-
-            if (oldIndex === -1 || newIndex === -1) return row;
-
-            const [moved] = products.splice(oldIndex, 1);
-            products.splice(newIndex, 0, moved);
-
-            return { ...row, products };
-          }),
+          prev.map((row) =>
+            row.id === fromRowId
+              ? moveProductWithinRow(row, fromProductId, toProductId)
+              : row,
+          ),
         );
       }
     }
@@ -103,7 +99,6 @@ export default function Grid({
     if (!over || !active) return;
 
     const activeType = active.data.current?.type;
-
     if (activeType !== 'product') return;
 
     const [fromRowId, productId] = active.id.toString().split(':');
@@ -120,30 +115,13 @@ export default function Grid({
     );
 
     if (!fromRow || !toRow || !movingProduct) return;
-
     // Avoid duplicates
     if (toRow.products.some((p) => p.id === productId)) return;
 
     // Simple insertion
     if (toRow.products.length < 3) {
       setRows((prev) =>
-        prev.map((row) => {
-          if (row.id === fromRowId) {
-            return {
-              ...row,
-              products: row.products.filter((p) => p.id !== productId),
-            };
-          }
-
-          if (row.id === toRowId) {
-            return {
-              ...row,
-              products: [...row.products, movingProduct],
-            };
-          }
-
-          return row;
-        }),
+        moveProductBetweenRows(prev, fromRowId, toRowId, productId),
       );
       return;
     }
@@ -152,29 +130,13 @@ export default function Grid({
     if (!productToReplace) return;
 
     setRows((prev) =>
-      prev.map((row) => {
-        if (row.id === fromRowId) {
-          return {
-            ...row,
-            products: [
-              ...row.products.filter((p) => p.id !== productId),
-              productToReplace,
-            ],
-          };
-        }
-
-        if (row.id === toRowId) {
-          return {
-            ...row,
-            products: [
-              ...row.products.filter((p) => p.id !== productToReplace.id),
-              movingProduct,
-            ],
-          };
-        }
-
-        return row;
-      }),
+      swapProductsBetweenFullRows(
+        prev,
+        fromRowId,
+        toRowId,
+        productId,
+        targetProductId,
+      ),
     );
   }
 

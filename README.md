@@ -54,6 +54,12 @@ yarn build
 yarn test
 ```
 
+### Run Unit Tests with UI
+
+```
+yarn test:ui
+```
+
 ### URL to test
 
 ```
